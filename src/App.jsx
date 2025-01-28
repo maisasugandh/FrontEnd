@@ -1,18 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { LandingPage } from './components/LandingPage'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+function App() {
   return (
-    <>
-      <div>
-      <LandingPage />
-    </div>
-    </>
+    <Routes>
+      {/* Redirect from root to landing page */}
+      <Route path="/" element={<Navigate to="/home" replace />} />
+      
+      {/* Main routes */}
+      <Route path="/home" element={<LandingPage />} />
+      
+      
+      {/* Catch all route - redirects to landing page */}
+      <Route path="*" element={<Navigate to="/home" replace />} />
+    </Routes>
   )
 }
 
