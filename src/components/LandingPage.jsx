@@ -89,7 +89,7 @@ export function LandingPage() {
             {isMenuOpen && (
               <div className="user-menu">
                 <button onClick={() => handleNavigation('/login')}>Login</button>
-                <button onClick={() => handleNavigation('/signup')}>Sign Up</button>
+                <button onClick={() => handleNavigation('/register')}>Sign Up</button>
                 <button onClick={() => handleNavigation('/profile')}>Profile</button>
               </div>
             )}

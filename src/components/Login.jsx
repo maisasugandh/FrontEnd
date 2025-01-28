@@ -94,7 +94,7 @@ const Login = () => {
           </button>
 
           <p className="signup-prompt">
-            New user? <a href="/signup">Sign up</a>
+            New user? <a href="/register">Sign up</a>
           </p>
         </form>
       </div>
