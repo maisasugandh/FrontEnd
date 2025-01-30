@@ -130,22 +130,22 @@
 
 /* User Menu Styles */
 .user-icon {
-  position: relative;
-  cursor: pointer;
+    display: flex;          /* Align items in a row */
+    align-items: center;    /* Vertically center items */
+    cursor: pointer;
+    gap: 10px;             /* Add spacing between icon and text */
+  }
   
-}
-
-.user-icon img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
- 
-}
-
-.user-icon:hover img {
-  transform: scale(1.1);
-}
+  .user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  .user-icon:hover img {
+    transform: scale(1.1);
+  }
 
 .user-menu {
   position: absolute;
@@ -160,6 +160,12 @@
   animation: slideDown 0.3s ease;
   z-index: 1000;
 }
+
+.userName {
+    color: aqua;
+    font-size: 16px;     /* Adjust font size */
+    font-weight: bold;   /* Make text bold */
+  }
 
 @keyframes slideDown {
   from {
@@ -233,12 +239,12 @@
 
 .car-text {
   color: #ff3838;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 30);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 10);
 }
 
 .ct-text {
   color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 30);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 10);
 }
 
 .cta-buttons {
