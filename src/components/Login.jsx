@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  let navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,13 +46,31 @@ const Login = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length === 0) {
-      // Handle login logic here
-      console.log('Form submitted:', formData);
+      try {
+        const response = await axios.post('http://localhost:8082/api/auth/login', formData);
+        
+        console.log('Login Successful:', response.data); // Logs token and user details
+
+        if (response.data) {
+          // Extract relevant data
+          const { username, token } = response.data;
+  
+          // Store in localStorage
+          localStorage.setItem("username", username);
+          localStorage.setItem("token", token);
+
+        navigate("/dashboard");
+        }
+
+      } catch (error) {
+        console.error('Login Error:', error.response?.data || error.message);
+        setApiError(error.response?.data?.message || 'Login failed. Please try again.');
+      }
     } else {
       setErrors(newErrors);
     }
@@ -88,6 +110,8 @@ const Login = () => {
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
+
+          {apiError && <p className="error-message">{apiError}</p>}
 
           <button type="submit" className="login-button">
             Sign in

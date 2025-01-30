@@ -3,6 +3,7 @@ import './App.css'
 import { LandingPage } from './components/LandingPage'
 import Login from './components/Login'
 import Register from './components/Register'
+import { UserDashboard } from './components/UserDashBoard'
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
         
         {/* Main routes */}
         <Route path="/home" element={<LandingPage />} />
+        
+        <Route path="/dashboard" element={<UserDashboard/>} />
 
         <Route path="/login" element={<Login/>}/>
 
