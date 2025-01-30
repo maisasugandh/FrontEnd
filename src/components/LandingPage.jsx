@@ -47,8 +47,7 @@ export function LandingPage() {
     } else if (path === '/profile') {
       navigate('/profile');
     } else if (path === '/buy') {
-      // Add buy car logic
-      console.log('Buying a car');
+      navigate('/cars');
     } else if (path === '/sell') {
       // Add sell car logic
       console.log('Selling a car');

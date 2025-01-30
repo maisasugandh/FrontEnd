@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const returnPath = location.state?.returnPath || '/home';
+  const expandCardId = location.state?.expandCardId;
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -42,13 +48,23 @@ const Login = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length === 0) {
       // Handle login logic here
       console.log('Form submitted:', formData);
+
+      // After successful login
+      localStorage.setItem('token', 'your-token');
+      
+      // Navigate back with expanded card if needed
+      if (returnPath === '/cars' && expandCardId) {
+        navigate(returnPath, { state: { expandCardId } });
+      } else {
+        navigate(returnPath);
+      }
     } else {
       setErrors(newErrors);
     }
