@@ -4,10 +4,12 @@ import { LandingPage } from './components/LandingPage'
 import Login from './components/Login'
 import Register from './components/Register'
 import { UserDashboard } from './components/UserDashBoard'
+import { CarListings } from './components/CarListings'
 
 
 function App() {
   return (
+    <BrowserRouter>
       <Routes>
         {/* Redirect from root to landing page */}
         <Route path="/" element={<Navigate to="/home" replace />} />
@@ -21,10 +23,13 @@ function App() {
 
         <Route path="/register" element ={<Register/>}/>
         
+        <Route path="/cars" element={<CarListings />} />
         
         {/* Catch all route - redirects to landing page */}
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
+    </BrowserRouter>
+      
   )
 }
 

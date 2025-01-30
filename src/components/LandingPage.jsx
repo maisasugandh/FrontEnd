@@ -43,14 +43,16 @@ export function LandingPage() {
     } else if (path === '/login') {
       navigate('/login');
     } else if (path === '/signup') {
-      navigate('/signup');
+      navigate('/register');
     } else if (path === '/profile') {
       navigate('/profile');
-    } else if (path === '/buy') {
+    } else if (path === '/cars') {
       // Add buy car logic
+      navigate('/cars');
       console.log('Buying a car');
     } else if (path === '/sell') {
       // Add sell car logic
+      navigate('/sell');
       console.log('Selling a car');
     } else if (path === '/service') {
       // Add service booking logic
@@ -111,7 +113,7 @@ export function LandingPage() {
         <div className="content-right">
           <div className="feature-card">
             <ul className="button-list">
-              <li><button className="action-btn" onClick={() => handleNavigation('/buy')}>Buy a Car</button></li>
+              <li><button className="action-btn" onClick={() => handleNavigation('/cars')}>Buy a Car</button></li>
               <li><button className="action-btn" onClick={() => handleNavigation('/sell')}>Sell Your Car</button></li>
               <li><button className="action-btn" onClick={() => handleNavigation('/service')}>Book Service</button></li>
             </ul>
