@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
-<<<<<<< HEAD
-import { useLocation, useNavigate } from 'react-router-dom';
-
-const Login = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const returnPath = location.state?.returnPath || '/home';
-  const expandCardId = location.state?.expandCardId;
-
-=======
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   let navigate = useNavigate();
->>>>>>> 2270a6f730db785046c833a1bef9426764c7a70d
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -62,19 +51,6 @@ const Login = () => {
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length === 0) {
-<<<<<<< HEAD
-      // Handle login logic here
-      console.log('Form submitted:', formData);
-
-      // After successful login
-      localStorage.setItem('token', 'your-token');
-      
-      // Navigate back with expanded card if needed
-      if (returnPath === '/cars' && expandCardId) {
-        navigate(returnPath, { state: { expandCardId } });
-      } else {
-        navigate(returnPath);
-=======
       try {
         const response = await axios.post('http://localhost:8082/api/auth/login', formData);
         
@@ -94,7 +70,6 @@ const Login = () => {
       } catch (error) {
         console.error('Login Error:', error.response?.data || error.message);
         setApiError(error.response?.data?.message || 'Login failed. Please try again.');
->>>>>>> 2270a6f730db785046c833a1bef9426764c7a70d
       }
     } else {
       setErrors(newErrors);
