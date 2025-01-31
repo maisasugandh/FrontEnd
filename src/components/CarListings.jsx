@@ -10,6 +10,7 @@ export function CarListings() {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [expandedCard, setExpandedCard] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   const menuRef = useRef(null);
   const cardRef = useRef(null);
   const navigate = useNavigate();
@@ -119,12 +120,25 @@ export function CarListings() {
       },
   ]);
 
+  const [showOfferPopup, setShowOfferPopup] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [offerAmount, setOfferAmount] = useState('');
+  const [popupAnimation, setPopupAnimation] = useState('');
+  const [overlayAnimation, setOverlayAnimation] = useState('');
+
   useEffect(() => {
     const checkLoginStatus = () => {
       const token = localStorage.getItem('token');
       setIsLoggedIn(!!token);
     };
     checkLoginStatus();
+  }, []);
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
   }, []);
 
   const getAvailableBrands = () => {
@@ -180,8 +194,35 @@ export function CarListings() {
     setExpandedCard(null);
   };
 
-  const handleMakeOffer = (carId) => {
-    console.log(`Making offer for car ${carId}`);
+  const handleMakeOffer = (car) => {
+    setSelectedCar(car);
+    setShowOfferPopup(true);
+    setOfferAmount('');
+  };
+
+  const handleCloseOffer = () => {
+    setPopupAnimation('shrink-cancel');
+    setOverlayAnimation('fade-out');
+    setTimeout(() => {
+      setShowOfferPopup(false);
+      setSelectedCar(null);
+      setOfferAmount('');
+      setPopupAnimation('');
+      setOverlayAnimation('');
+    }, 1200);
+  };
+
+  const handleSubmitOffer = () => {
+    setPopupAnimation('shrink-success');
+    setOverlayAnimation('fade-out');
+    setTimeout(() => {
+      console.log(`Offer submitted for ${selectedCar.make} ${selectedCar.model}: $${offerAmount}`);
+      setShowOfferPopup(false);
+      setSelectedCar(null);
+      setOfferAmount('');
+      setPopupAnimation('');
+      setOverlayAnimation('');
+    }, 1200);
   };
 
   const handleLogout = () => {
@@ -213,16 +254,14 @@ export function CarListings() {
   return (
     <div className="car-listings-container">
       <header className="listings-header">
-        <img 
-          src={carLogo} 
-          alt="Car Logo" 
-          className="car-logo" 
-          onClick={() => handleNavigation('/home')}
-        />
+        <div className="logo">
+          <img src={carLogo} alt="Car Connect Logo" onClick={() => handleNavigation('/')} />
+        </div>
         
         <div className="user-section">
           <div className="user-icon" ref={menuRef} onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <img src={userIcon} alt="User Icon" />
+            {username && <span className="username">{username}</span>}
             {isMenuOpen && (
               <div className="user-menu">
                 {isLoggedIn ? (
@@ -334,7 +373,7 @@ export function CarListings() {
                       </div>
                       <button 
                         className="make-offer-btn"
-                        onClick={() => handleMakeOffer(car.carId)}
+                        onClick={() => handleMakeOffer(car)}
                       >
                         Make an Offer
                       </button>
@@ -371,6 +410,43 @@ export function CarListings() {
           ))}
         </div>
       </div>
+
+      {showOfferPopup && selectedCar && (
+        <div className={`offer-overlay ${overlayAnimation}`}>
+          <div className={`offer-popup ${popupAnimation}`}>
+            <h2>Make a Request</h2>
+            <div className="offer-content">
+              <h3>{selectedCar.make} {selectedCar.model}</h3>
+              <p>Current Price: {selectedCar.price}</p>
+              <div className="offer-input">
+                <label htmlFor="offerAmount">Your Offer Amount ($)</label>
+                <input
+                  type="number"
+                  id="offerAmount"
+                  value={offerAmount}
+                  onChange={(e) => setOfferAmount(e.target.value)}
+                  placeholder="Enter your offer amount"
+                />
+              </div>
+              <div className="offer-buttons">
+                <button 
+                  className="back-btn" 
+                  onClick={handleCloseOffer}
+                >
+                  Back
+                </button>
+                <button 
+                  className="request-btn" 
+                  onClick={handleSubmitOffer}
+                  disabled={!offerAmount}
+                >
+                  Request
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 

@@ -42,20 +42,15 @@ export function LandingPage() {
       homeRef.current?.scrollIntoView({ behavior: 'smooth' });
     } else if (path === '/login') {
       navigate('/login');
-    } else if (path === '/signup') {
+    } else if (path === '/register') {
       navigate('/register');
     } else if (path === '/profile') {
       navigate('/profile');
     } else if (path === '/cars') {
-      // Add buy car logic
       navigate('/cars');
-      console.log('Buying a car');
     } else if (path === '/sell') {
-      // Add sell car logic
       navigate('/sell');
-      console.log('Selling a car');
     } else if (path === '/service') {
-      // Add service booking logic
       console.log('Booking service');
     } else {
       console.log(`Navigating to ${path}`);

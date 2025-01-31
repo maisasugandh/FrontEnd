@@ -69,9 +69,9 @@ export function UserDashboard() {
     } else if (path === '/profile') {
       navigate('/profile');
     } else if (path === '/buy') {
-      console.log('Buying a car');
+      navigate('/cars');
     } else if (path === '/sell') {
-      console.log('Selling a car');
+      navigate('/sell');
     } else if (path === '/service') {
       console.log('Booking service');
     }
